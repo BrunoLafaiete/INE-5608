@@ -112,4 +112,7 @@ class Tabuleiro:
 
     def get_status_partida(self):
         return self.status_partida
+    
+    def atualizar_interface(self, status_jogo):
+        pass
 
