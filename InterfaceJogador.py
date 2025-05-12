@@ -1,12 +1,11 @@
 import tkinter as tk
-from tkinter import FALSE, Menu, messagebox
+from tkinter import FALSE, Menu, messagebox, simpledialog
 from tkinter.messagebox import showinfo
 from Tabuleiro import Tabuleiro
 from dog.dog_actor import DogActor
 from dog.dog_interface import DogPlayerInterface
 
 class InterfaceJogador(DogPlayerInterface):
-    
     def __init__(self):
         self.tk = tk.Tk()
         self.menubar = Menu(self.tk)
@@ -16,12 +15,16 @@ class InterfaceJogador(DogPlayerInterface):
         self.menubar.add_cascade(label='Arquivo', menu=self.arquivo)
         self.tk.config(menu=self.menubar) 
         self.tabuleiro = Tabuleiro(self.tk)
+        nome_jogador = simpledialog.askstring("Nome do Jogador", "Digite seu nome:")
         self.dog_server_interface = DogActor()
-        message = self.dog_server_interface.initialize(self.tabuleiro.player_name, self)
-        messagebox.showinfo(message=message)
+        mensagem = self.dog_server_interface.initialize(nome_jogador, self)
+        messagebox.showinfo(message=mensagem)
     
     def iniciar_partida(self):
-        status_partida = self.tabuleiro.get_status_partida()
+        start_status = self.dog_server_interface.start_match(2)
+        menssagem = start_status.get_message()
+        messagebox.showinfo(message=menssagem)
+        '''status_partida = self.tabuleiro.get_status_partida()
         if status_partida == 1:
             resposta = messagebox.askyesno("START", "Deseja iniciar uma nova partida?")
             if resposta:
@@ -36,7 +39,7 @@ class InterfaceJogador(DogPlayerInterface):
                     self.tabuleiro.iniciar_partida(jogadores, jogadore_local_id)
                     game_state = self.tabuleiro.get_status()
                     self.update_gui(game_state)
-                    messagebox.showinfo(message=start_status.get_message())
+                    messagebox.showinfo(message=start_status.get_message())'''
     
     def receber_inicio(self, start_status):
         message = start_status.get_message()
@@ -44,9 +47,7 @@ class InterfaceJogador(DogPlayerInterface):
 
     def start_game(self):
         print("Iniciando jogo...")
-
-    def receive_start(self) -> None:
-        pass  
+ 
 
     def __show_popup_message(self, msg: str) -> None:
         showinfo("Oxono", f"MENSAGEM: {msg}")

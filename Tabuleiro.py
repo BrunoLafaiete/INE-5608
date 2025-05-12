@@ -1,5 +1,4 @@
 from tkinter import Canvas
-from tkinter import simpledialog
 from Peca import Peca
 import Jogador as jogador
 
@@ -35,8 +34,6 @@ class Tabuleiro:
 
         self.current_symbol = "X"
         self.current_color = "#cc0000"
-
-        self.player_name = simpledialog.askstring("Nome do Jogador", "Digite seu nome:")
 
     def draw_board(self):
         board_size = self.canvas_width - (2 * self.board_margin)

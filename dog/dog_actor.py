@@ -22,7 +22,7 @@ class DogActor:
         self.proxy.send_move(move)
 
     def receive_start(self, start_status):
-        self.player_actor.receive_start(start_status)
+        self.player_actor.receber_inicio(start_status)
 
     def receive_move(self, a_move):
         self.player_actor.receive_move(a_move)

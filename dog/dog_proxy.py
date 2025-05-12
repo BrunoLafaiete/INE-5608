@@ -30,6 +30,7 @@ class DogProxy:
             self.game_id = config_file.read()
         except FileNotFoundError:
             self.status = 0
+            print(f"Game ID read from config file: {self.game_id}")
             return "Arquivo de configuração do jogo não encontrado"
         config_file.close()
         resp = self.register_player(self.player_name, self.player_id, self.game_id)
